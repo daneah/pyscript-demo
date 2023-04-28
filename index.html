@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+        <title>PyScript Demo</title>
+
+        <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+        <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+
+        <link rel="stylesheet" href="/client/styles.css" />
+    </head>
+    <body>
+      <h1>PhillyPUG demo</h1>
+
+      <p>
+        This page is initially served via FastAPI.
+        The content of the page uses a PyScript custom plugin to define a custom element that enhances the page content.
+      </p>
+
+      <py-config>
+          plugins = ["/client/responsive_image.py"]
+
+          [splashscreen]
+          enabled = false
+
+          [[fetch]]
+          files = ["/client/pylit.py"]
+      </py-config>
+
+
+      <h2>Default behavior</h2>
+      <p>
+        The following image is a default <code>img</code> tag.
+        The default browser behavior displays images at their native size, so this image likely flows off the page unless you have a large monitor.
+      </p>
+      <img src="https://via.placeholder.com/2000x100" alt="A placeholder image" />
+
+      <p>
+        The following image is also a default <code>img</code> tag.
+        Because images are displayed at their native size, this image is likely narrower than your browser unless you have a small monitor or mobile device.
+      </p>
+      <img src="https://via.placeholder.com/1000x100" alt="A placeholder image" />
+
+
+      <h2>Behavior with PyScript-defined element</h2>
+      <p>
+          The following image is also an <code>img</code> tag, but it's wrapped in a <code>responsive-image</code> custom element.
+          The custom element is defined in PyScript and makes the image responsive so that it will shrink to fit its container.
+          To avoid a flash of unstyled content, content of custom elements that aren't yet defined are initially hidden via CSS.
+      </p>
+      <responsive-image>
+          <img src="https://via.placeholder.com/2000x100" alt="A placeholder image" />
+      </responsive-image>
+
+
+      <h2>Behavior with PyScript-defined element and property</h2>
+      <p>
+          The following image is also wrapped in <code>responsive-image</code>, but has the <code>grow="true"</code> attribute.
+          This image will both shrink and grow to fit the container, even when the container is larger than the native resolution of the image.
+      </p>
+      <responsive-image grow="true">
+          <img src="https://via.placeholder.com/1000x100" alt="A placeholder image" />
+      </responsive-image>
+    </body>
+</html>
